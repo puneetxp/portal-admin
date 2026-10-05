@@ -1,33 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import { AdminSidebar } from "./AdminSidebar";
-import { AdminHeader } from "./AdminHeader";
 import { OperatorSidebar } from "./OperatorSidebar";
 import { OperatorHeader } from "./OperatorHeader";
 
-interface AdminLayoutProps {
+interface OperatorLayoutProps {
   children: React.ReactNode;
 }
 
-export function AdminLayout({ children }: AdminLayoutProps) {
+export function OperatorLayout({ children }: OperatorLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
-
-  // Determine which portal shell to display
-  const isOperatorRoute =
-    pathname.startsWith("/portal") ||
-    pathname === "/manifest" ||
-    pathname === "/profile" ||
-    pathname.startsWith("/profile/") ||
-    pathname === "/recoveries";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-canvas font-sans antialiased text-gray-800">
-      {/* Desktop Fixed Height Sidebar - Never scrolls away */}
+      {/* Desktop Fixed Height Operator Sidebar */}
       <div className="hidden lg:flex flex-col flex-shrink-0 h-screen w-64 z-30">
-        {isOperatorRoute ? <OperatorSidebar /> : <AdminSidebar />}
+        <OperatorSidebar />
       </div>
 
       {/* Mobile Drawer Backdrop */}
@@ -38,26 +26,18 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         />
       )}
 
-      {/* Mobile Drawer Sidebar */}
+      {/* Mobile Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 z-50 h-full w-64 transform lg:hidden transition-transform duration-200 ease-in-out shadow-2xl ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {isOperatorRoute ? (
-          <OperatorSidebar onCloseMobile={() => setMobileMenuOpen(false)} />
-        ) : (
-          <AdminSidebar onCloseMobile={() => setMobileMenuOpen(false)} />
-        )}
+        <OperatorSidebar onCloseMobile={() => setMobileMenuOpen(false)} />
       </div>
 
-      {/* Main Content Area: Pinned Header + Independent Page Scroll */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-screen min-w-0 overflow-hidden">
-        {isOperatorRoute ? (
-          <OperatorHeader onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
-        ) : (
-          <AdminHeader onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
-        )}
+        <OperatorHeader onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
         <main className="flex-1 overflow-y-auto overflow-x-hidden p-6 lg:p-8 max-w-[1600px] w-full mx-auto space-y-6">
           {children}
         </main>
