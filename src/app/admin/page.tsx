@@ -29,14 +29,12 @@ import {
   RefreshCw,
   Eye,
 } from "lucide-react";
-import { AdminLayout } from "@/components/layout/AdminLayout";
 
 export default function AdminDashboardPage() {
   const [timeframe, setTimeframe] = useState<"monthly" | "weekly">("monthly");
 
   return (
-    <AdminLayout>
-      <div className="space-y-7 pb-12">
+    <div className="space-y-7 pb-12">
         {/* Top Header / Welcome Banner */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-stroke shadow-xs">
           <div>
@@ -570,6 +568,5 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       </div>
-    </AdminLayout>
   );
 }

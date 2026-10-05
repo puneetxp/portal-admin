@@ -18,14 +18,12 @@ import {
   Percent,
 } from "lucide-react";
 import { mockPassengerManifest } from "@/data/mockData";
-import { AdminLayout } from "@/components/layout/AdminLayout";
 
 export default function OperatorDashboardPage() {
   const [dateFilter] = useState("Today, Oct 24, 2023");
 
   return (
-    <AdminLayout>
-      <div className="space-y-7 pb-12">
+    <div className="space-y-7 pb-12">
         {/* Top Banner / Welcome Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-stroke shadow-xs">
           <div>
@@ -330,6 +328,5 @@ export default function OperatorDashboardPage() {
           </div>
         </div>
       </div>
-    </AdminLayout>
   );
 }
